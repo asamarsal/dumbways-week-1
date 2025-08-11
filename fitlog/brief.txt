@@ -1,0 +1,41 @@
+## 🔐 Autentikasi
+Login & Register dengan email (Supabase Auth)
+Google OAuth
+Setelah login, redirect ke dashboard
+
+## Role Pengguna
+user : bisa mencatat dan melihat latihannya sendiri
+trainer : bisa melihat progres beberapa user (fitur dasar, bisa dikembangkan nanti)
+
+## 📝 Fitur CRUD Latihan Harian
+
+### Tambah catatan latihan:
+Jenis olahraga (contoh: lari, angkat beban, yoga)
+Durasi (menit)
+Intensitas (ringan/sedang/berat)
+Catatan tambahan (opsional)
+Tanggal (default: hari ini)
+
+### Lihat daftar latihan (per hari/minggu)
+Edit & hapus latihan milik sendiri
+Filter berdasarkan jenis olahraga atau tanggal
+
+
+### 📊 Dashboard Sederhana
+Ringkasan mingguan: total durasi latihan
+Kalender mini atau list harian
+Progress bar sederhana (misal: "3 dari 5 hari aktif minggu ini")
+
+
+### 🎨 UI Minimalis
+Gunakan Tailwind CSS atau ShadCN UI
+Responsif (bisa dibuka di HP)
+Form input sederhana
+
+### 🚀 Ide Pengembangan (Setelah MVP)
+Kalender interaktif (fullcalendar)
+Statistik & grafik (recharts)
+Notifikasi harian (Supabase + Resend)
+Ekspor data ke PDF
+Fitur tantangan mingguan
+Trainer bisa follow user (relasi many-to-many)
