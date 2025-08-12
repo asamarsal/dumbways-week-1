@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { Input } from "@/components/ui/input"
 
+// import axios from "axios";
+
 import {
   Card,
   CardAction,
@@ -28,7 +30,7 @@ export default function Login() {
       <main className="w-full max-w-md px-4">
         <Card>
           <CardHeader>
-            <CardTitle>Register</CardTitle>
+            <CardTitle className="text-2xl">Register</CardTitle>
             <CardDescription>Create your account</CardDescription>
           </CardHeader>
 
