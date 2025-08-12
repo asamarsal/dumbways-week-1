@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.distortion-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

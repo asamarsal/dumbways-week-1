@@ -6,50 +6,54 @@ import { Input } from "@/components/ui/input"
 import SplitText from "@/components/reactbits/splittext";
 import TextType from "@/components/reactbits/typetext"
 
+import { useEffect, useRef } from 'react';
+
 const handleAnimationComplete = () => {
   console.log('All letters have animated!');
 };
 
-// Background
-import Aurora from '@/components/reactbits/backgroundaurora';
+import Iridescence from '@/components/reactbits/bgiridescence';
 
 export default function Home() {
   return (
-    <div className="font-sans items-center min-h-screen">
-      <Aurora
-          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-          blend={0.8}
-          amplitude={2.0}
-          speed={0.5}
-        />
+    <div className="relative w-screen h-screen overflow-hidden">
+      <Iridescence
+        color={[1, 1, 1]}
+        mouseReact={false}
+        amplitude={0.1}
+        speed={1.0} >
 
-        <div className="flex items-center flex-col">
-          <SplitText
-            text="FitCuy"
-            className="text-3xl font-semibold text-center"
-            delay={100}
-            duration={0.6}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-            onLetterAnimationComplete={handleAnimationComplete}
-          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex items-center flex-col z-10">
+            
+              <SplitText
+                text="FitCuy"
+                className="text-4xl font-semibold text-center text-black"
+                delay={100}
+                duration={0.6}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-100px"
+                textAlign="center"
+                onLetterAnimationComplete={handleAnimationComplete}
+              />
 
-          <TextType 
-            text={["Text typing effect", "for your websites", "Happy coding!"]}
-            textColors={["#000000"]}
-            typingSpeed={75}
-            pauseDuration={1500}
-            showCursor={true}
-            cursorCharacter="|"
-          />
+              <TextType 
+                text={["Your home workout friends", "Simple and clear explanation", "Healthy lifestyle"]}
+                textColors={["#000000"]}
+                typingSpeed={75}
+                pauseDuration={1500}
+                showCursor={true}
+                cursorCharacter="|"
+              />
 
-        </div>
+            </div>
+          </div>
 
+        </Iridescence>
     </div>
   );
 }

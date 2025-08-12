@@ -45,7 +45,7 @@ export default function Login() {
                 className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-base h-12 px-5"
                 onClick={() => console.log("Register button clicked")}
               >
-                Login
+                Register
               </button>
 
               <p className="text-sm text-center">
