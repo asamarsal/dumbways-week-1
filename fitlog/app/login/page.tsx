@@ -19,20 +19,6 @@ import {
 import Aurora from '@/components/reactbits/backgroundaurora';
 
 export default function Register() {
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [message, setMessage] = useState("");
-
-    // const handleLogin = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, { email, password });
-    //     setMessage("Login berhasil!");
-    //     console.log(res.data);
-    //     } catch (err) {
-    //     setMessage(err.response?.data?.error || "Error");
-    //     }
-    // };
 
     return (
         <div className="font-sans items-center justify-items-center gap-2">
