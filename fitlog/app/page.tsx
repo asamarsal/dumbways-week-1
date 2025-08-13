@@ -43,6 +43,7 @@ export default function Home() {
 
               <TextType 
                 text={["Your home workout friends", "Simple and clear explanation", "Healthy lifestyle"]}
+                textColors={["white"]}
                 typingSpeed={75}
                 pauseDuration={1500}
                 showCursor={true}
