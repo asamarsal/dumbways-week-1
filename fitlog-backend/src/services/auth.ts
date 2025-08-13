@@ -15,7 +15,7 @@ export async function register(email: string, password: string, full_name: strin
     data: { 
       email, 
       password: hashed,
-      full_name,
+      name,
       username,
     }
   });
@@ -25,7 +25,7 @@ export async function register(email: string, password: string, full_name: strin
   return { 
     id: user.id, 
     email: user.email,
-    full_name,
+    name,
     username,
     token
   };

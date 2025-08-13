@@ -1,10 +1,12 @@
 import express from "express";
+import http from "http";
 import authRoute from "./routes/auth";
 import { corsMiddleware } from "./middlewares/cors";
 
 import path from "path";
 
 const app = express();
+const httpServer = http.createServer(app); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
