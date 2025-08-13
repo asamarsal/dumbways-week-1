@@ -48,6 +48,8 @@ export default function Home() {
                 pauseDuration={1500}
                 showCursor={true}
                 cursorCharacter="|"
+                variableSpeed={undefined}
+                onSentenceComplete={() => {}}
               />
 
             </div>
