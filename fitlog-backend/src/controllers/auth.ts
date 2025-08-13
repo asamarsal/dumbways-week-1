@@ -13,13 +13,13 @@ export async function handleRegister(req: Request, res: Response) {
       return;
     }
 
-    const { email, password, username, full_name} = req.body;
-    const data = await register(email, password, username, full_name);
+    const { email, password, username, name} = req.body;
+    const data = await register(email, password, username, name);
 
     res.status(200).json({ code: 200, message: "Registrasi berhasil. Akun berhasil dibuat.", data: {
         user_id: data.id,
         username: data.username,
-        name: data.full_name,
+        name: data.name,
         email: data.email,
         token: data.token
       },
@@ -29,6 +29,7 @@ export async function handleRegister(req: Request, res: Response) {
       code: 500,
       status: "error",
       message: "Invalid register",
+      error: err.message
     });
   }
 }
@@ -60,7 +61,9 @@ export async function handleLogin(req: Request, res: Response) {
     res.status(500).json({
       code: 500,
       status: "error",
-      message: "Invalid Login"
+      message: "Invalid Login",
+      error: err.message
+
     });
   }
 }

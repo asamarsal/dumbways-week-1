@@ -4,7 +4,15 @@ import { prisma } from "../prisma/client";
 import { signToken } from "../utils/jwt";
 import { loginSchema } from "../validation/auth";
 
-export async function register(email: string, password: string, full_name: string, username: string) {
+export async function register(
+  email: string, 
+  password: string, 
+  username: string,
+  name: string, 
+  role?: string,
+  photo_profile?: string,
+  bio?: string
+) {
   if (!email.match(/@/) || password.length < 6) {
     throw new Error("Invalid email or password");
   }
@@ -15,8 +23,11 @@ export async function register(email: string, password: string, full_name: strin
     data: { 
       email, 
       password: hashed,
-      name,
       username,
+      name,
+      role,
+      photo_profile,
+      bio,  
     }
   });
 
@@ -25,8 +36,8 @@ export async function register(email: string, password: string, full_name: strin
   return { 
     id: user.id, 
     email: user.email,
-    name,
-    username,
+    name: user.name,
+    username: user.username,
     token
   };
 }
@@ -51,7 +62,7 @@ export async function login(identifier: string, password: any) {
   return {
     id: user.id,
     username: user.username,
-    name: user.full_name,
+    name: user.name,
     email: user.email,
     token
   };

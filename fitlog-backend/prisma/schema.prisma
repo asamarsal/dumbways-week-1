@@ -21,9 +21,33 @@ model User {
   username      String   @unique
   password      String
   role          String   @default("user")
-  photo_profile String?  // Optional field
-  bio           String?  // Optional field
+  photo_profile String?  @default("https://picsum.photos/200")
+  bio           String?  @default("Welcome to fitcuy")
   created_at    DateTime @default(now())
 
+  // Relasi ke Workout
+  workouts_created Workout[] @relation("WorkoutsCreated")
+  workouts_updated Workout[] @relation("WorkoutsUpdated")
+
   @@map("users") // Maps to "users" table in database
+}
+
+model Workout {
+  id             Int       @id @default(autoincrement())
+  exercise_type  String
+  duration       Int?      // durasi dalam menit (opsional)
+  exercise_date  DateTime
+  notes          String?   @default("")
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+
+  // Relasi ke User (created_by)
+  created_by     Int
+  createdByUser  User      @relation("WorkoutsCreated", fields: [created_by], references: [id])
+
+  // Relasi ke User (updated_by)
+  updated_by     Int?
+  updatedByUser  User?     @relation("WorkoutsUpdated", fields: [updated_by], references: [id])
+  
+  @@map("workouts")
 }

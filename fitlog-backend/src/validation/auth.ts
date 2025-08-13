@@ -2,7 +2,7 @@ import Joi from "joi";
 
 export const registerSchema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
-  full_name: Joi.string().min(3).max(100).required(),
+  name: Joi.string().min(3).max(100).required(),
   email: Joi.string().email().required(),
   password: Joi.string()
     .min(8)
@@ -12,7 +12,9 @@ export const registerSchema = Joi.object({
       'string.min': 'Password must be at least 8 characters',
       'string.pattern.base': 'Password must contain at least 1 uppercase letter, 1 special character, 1 lowercase letter and 1 number'
     }),
-    role: Joi.string().valid('user', 'trainer').default('user')
+    role: Joi.string().valid('user', 'trainer').default('user'),
+    photo_profile: Joi.string().uri().optional(),
+    bio: Joi.string().optional(),
 });
 
 export const loginSchema = Joi.object({

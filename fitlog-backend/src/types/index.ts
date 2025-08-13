@@ -1,9 +1,9 @@
 export interface User {
   id: number;
   username: string;
-  full_name: string;
+  name: string;
   email: string;
-  photo_profile: string | null;
-  bio: string | null;
+  photo_profile: string | "https://picsum.photos/200";
+  bio: string | "Welcome to fitcuy";
   role: string;
 }
