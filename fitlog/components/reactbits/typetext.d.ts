@@ -19,7 +19,7 @@ interface TextTypeProps {
   onSentenceComplete?: (text: string, index: number) => void;
   startOnVisible?: boolean;
   reverseMode?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 declare function TextType(props: TextTypeProps): ReactNode;
