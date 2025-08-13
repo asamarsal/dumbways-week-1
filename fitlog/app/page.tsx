@@ -1,12 +1,12 @@
 "use client";
 
-import Link from 'next/link'
+// import Link from 'next/link'
 
-import { Input } from "@/components/ui/input"
+// import { Input } from "@/components/ui/input"
 import SplitText from "@/components/reactbits/splittext";
 import TextType from "@/components/reactbits/typetext"
 
-import { useEffect, useRef } from 'react';
+// import { useEffect, useRef } from 'react';
 
 const handleAnimationComplete = () => {
   console.log('All letters have animated!');
