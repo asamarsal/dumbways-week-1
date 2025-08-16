@@ -31,7 +31,10 @@ export async function register(
     }
   });
 
-  const token = signToken({ id: user.id });
+  const token = signToken({ 
+    id: user.id,
+    role: user.role 
+  });
 
   return { 
     id: user.id, 
@@ -58,12 +61,13 @@ export async function login(identifier: string, password: any) {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) throw new Error("Wrong password");
 
-  const token = signToken({ id: user.id,});
+  const token = signToken({ id: user.id, role: user.role });
   return {
     id: user.id,
     username: user.username,
     name: user.name,
     email: user.email,
+    role: user.role,
     token
   };
 }

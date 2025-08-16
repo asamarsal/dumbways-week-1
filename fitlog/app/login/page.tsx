@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+
 // Background
 import Aurora from '@/components/reactbits/backgroundaurora';
 
@@ -39,7 +40,11 @@ export default function Login() {
         setLoading(false);
         return;
       }
-      // Simpan token ke localStorage/sessionStorage jika perlu
+      // Simpan info
+      localStorage.setItem("user_id", data.data.user_id);
+      localStorage.setItem("username", data.data.username);
+      localStorage.setItem("name", data.data.name);
+      localStorage.setItem("email", data.data.email);
       localStorage.setItem("token", data.data.token);
       // Redirect ke dashboard atau halaman lain
       window.location.href = "/dashboard";

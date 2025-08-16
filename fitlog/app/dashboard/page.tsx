@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Navbar from "@/components/navbar";
+
+import SpotlightCard from '@/components/reactbits/spotlightcard';
 
 export default function Dashboard() {
   return (
@@ -11,13 +12,39 @@ export default function Dashboard() {
       <Navbar />
 
       {/* Konten */}
-      <main className="pt-20 w-full max-w-md mx-auto px-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Hello</CardTitle>
-            <CardDescription>Anda sudah login</CardDescription>
-          </CardHeader>
-        </Card>
+      <main className="pt-18 w-full px-4">
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col">
+            <p className="text-xl font-bold">Saran Workout</p>
+            <p className="pb-2">Make your first move...</p>
+          </div>
+          <div className="flex flex-col">
+            <img
+            src="/fitcuylong.png"
+            alt="FitCuy Logo"
+            width={80}
+            height={80}
+            className="mb-2 mx-auto"
+           />
+          </div>
+        </div>
+        <div className="flex flex-row gap-4">
+          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
+            <p className="text-white">Test</p>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
+            <p className="text-white">Test</p>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
+            <p className="text-white">Test</p>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
+            <p className="text-white">Test</p>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
+            <p className="text-white">Test</p>
+          </SpotlightCard>
+        </div>
       </main>
     </div>
   );

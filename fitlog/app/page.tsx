@@ -8,6 +8,8 @@ import TextType from "@/components/reactbits/typetext"
 
 // import { useEffect, useRef } from 'react';
 
+import { Button } from "@/components/ui/button"
+
 const handleAnimationComplete = () => {
   console.log('All letters have animated!');
 };
@@ -24,7 +26,7 @@ export default function Home() {
         speed={1.0} >
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex items-center flex-col z-10">
+            <div className="flex items-center flex-col">
             
               <SplitText
                 text="FitCuy"
@@ -43,7 +45,7 @@ export default function Home() {
 
               <TextType 
                 text={["Your home workout friends", "Simple and clear explanation", "Healthy lifestyle"]}
-                textColors={["white"]}
+                textColors={["black"]}
                 typingSpeed={75}
                 pauseDuration={1500}
                 showCursor={true}
@@ -51,7 +53,6 @@ export default function Home() {
                 variableSpeed={undefined}
                 onSentenceComplete={() => {}}
               />
-
             </div>
           </div>
 

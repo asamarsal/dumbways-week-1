@@ -100,7 +100,7 @@ const AnimatedList = ({
     <div className={`relative w-[380px] ${className}`}>
       <div
         ref={listRef}
-        className={`max-h-[220px] overflow-y-auto p-4 ${
+        className={`max-h-[140px] overflow-y-auto p-4 ${
           displayScrollbar
             ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]"
             : "scrollbar-hide"

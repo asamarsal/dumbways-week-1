@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
@@ -20,34 +14,78 @@ model User {
   name          String
   username      String   @unique
   password      String
-  role          String   @default("user")
+  role          String   @default("member")
   photo_profile String?  @default("https://picsum.photos/200")
   bio           String?  @default("Welcome to fitcuy")
   created_at    DateTime @default(now())
 
-  // Relasi ke Workout
+  // Relasi workout yang dibuat user ini
   workouts_created Workout[] @relation("WorkoutsCreated")
   workouts_updated Workout[] @relation("WorkoutsUpdated")
 
-  @@map("users") // Maps to "users" table in database
+  // Relasi mentorship 
+  membersOf Mentorship[] @relation("MentorMentorships")   // sebagai mentor
+  mentorsOf Mentorship[] @relation("MemberMentorships")   // sebagai member
+
+  // Workout yang ditugaskan sebagai mentor
+  assignedWorkouts Workout[] @relation("MentorAssignedWorkouts")
+
+  @@map("users")
 }
 
 model Workout {
-  id             Int       @id @default(autoincrement())
-  exercise_type  String
-  duration       Int?      // durasi dalam menit (opsional)
-  exercise_date  DateTime
-  notes          String?   @default("")
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
+  id            Int      @id @default(autoincrement()) // ID unik workout
+  exercise_id   Int      // FK ke Sport.id
+  duration      Int?
+  exercise_date DateTime
+  notes         String?  @default("")
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
-  // Relasi ke User (created_by)
-  created_by     Int
-  createdByUser  User      @relation("WorkoutsCreated", fields: [created_by], references: [id])
+  // Relasi ke User (created_by = pemilik workout)
+  created_by    Int
+  createdByUser User     @relation("WorkoutsCreated", fields: [created_by], references: [id])
 
   // Relasi ke User (updated_by)
   updated_by     Int?
-  updatedByUser  User?     @relation("WorkoutsUpdated", fields: [updated_by], references: [id])
-  
+  updatedByUser  User?    @relation("WorkoutsUpdated", fields: [updated_by], references: [id])
+
+  // Relasi ke Sport
+  sport          Sport    @relation(fields: [exercise_id], references: [id])
+
+  // Relasi ke Mentor (yang memberi arahan)
+  mentor_id      Int?
+  mentor         User?    @relation("MentorAssignedWorkouts", fields: [mentor_id], references: [id])
+
+  @@index([mentor_id])
   @@map("workouts")
+}
+
+model Sport {
+  id            Int      @id @default(autoincrement()) // ID unik jenis olahraga
+  exercise_type String
+  info          String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  // Relasi ke Workout
+  workouts      Workout[]
+
+  @@map("sports")
+}
+
+model Mentorship {
+  id         Int      @id @default(autoincrement())
+  mentorId   Int
+  memberId   Int
+  isActive   Boolean  @default(true)
+  created_at DateTime @default(now())
+
+  mentor     User     @relation("MentorMentorships", fields: [mentorId], references: [id], onDelete: Cascade)
+  member     User     @relation("MemberMentorships", fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([mentorId, memberId])
+  @@index([mentorId])
+  @@index([memberId])
+  @@map("mentorships")
 }

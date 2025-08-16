@@ -53,28 +53,24 @@ import {
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "ujang",
+    label: "Ujang",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "bagas",
+    label: "Bagas",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "asep",
+    label: "Asep",
   },
   {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
+    value: "sugiono",
+    label: "Sugiono",
+  }
 ]
 
-export default function Dashboard() {
+export default function Student() {
 
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = React.useState<Date | undefined>(undefined)
@@ -249,7 +245,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                        {/* <div className="flex flex-col gap-2 px-4">
+                        <div className="flex flex-col gap-2 px-4">
                             <Popover open={openFramework} onOpenChange={setOpenFramework}>
       
                                 <PopoverTrigger asChild>
@@ -261,14 +257,14 @@ export default function Dashboard() {
                                     >
                                     {value
                                         ? frameworks.find((framework) => framework.value === value)?.label
-                                        : "Select framework..."}
+                                        : "Select student..."}
                                     <ChevronsUpDown className="opacity-50" />
                                     </Button>
                                 </PopoverTrigger>
                                 
                                 <PopoverContent className="w-full p-0">
                                     <Command>
-                                    <CommandInput placeholder="Search framework..." className="h-9" />
+                                    <CommandInput placeholder="Search student..." className="h-9" />
                                     <CommandList>
                                         <CommandEmpty>No framework found.</CommandEmpty>
                                         <CommandGroup>
@@ -295,7 +291,7 @@ export default function Dashboard() {
                                     </Command>
                                 </PopoverContent>
                             </Popover>
-                        </div> */}
+                        </div>
 
                     <div className="flex flex-col gap-2 px-4">
 
