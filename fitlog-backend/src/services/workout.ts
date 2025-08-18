@@ -12,6 +12,17 @@ export async function createWorkoutService(
     throw new Error("exercise_type, exercise_date, dan created_by wajib diisi");
   }
 
+  // Get mentor_id from mentorships table
+  const mentorship = await prisma.mentorship.findFirst({
+    where: {
+      memberId: created_by,
+      isActive: true
+    },
+    select: {
+      mentorId: true
+    }
+  });
+
   const workout = await prisma.workout.create({
     data: {
       exercise_id,
@@ -19,8 +30,27 @@ export async function createWorkoutService(
       exercise_date: new Date(exercise_date),
       notes: notes || "",
       created_by,
-      updated_by: created_by
+      updated_by: created_by,
+      user_id: created_by,
+      mentor_id: mentorship?.mentorId || null // Set mentor_id if exists
     },
+    include: {
+      createdByUser: {
+        select: {
+          id: true,
+          name: true,
+          username: true
+        }
+      },
+      mentor: {
+        select: {
+          id: true,
+          name: true,
+          username: true
+        }
+      },
+      sport: true
+    }
   });
 
   return workout;

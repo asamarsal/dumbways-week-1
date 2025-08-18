@@ -146,8 +146,24 @@ export default function Progress() {
   };
 
   return (
-    <div className="font-sans min-h-screen bg-gray-50">
+    <div className="font-sans min-h-screen">
       <Navbar />
+
+      <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background: "#ffffff",
+            backgroundImage: `
+              radial-gradient(
+                circle at top center,
+                rgba(173, 109, 244, 0.5),
+                transparent 70%
+              )
+            `,
+            filter: "blur(80px)",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
 
       <main className="pt-18 w-full max-w-7xl mx-auto px-4"> {/* Changed max-w-xl to max-w-7xl */}
         <p className="text-xl font-bold">Workout Plan</p>
@@ -184,10 +200,13 @@ export default function Progress() {
               <Card key={workout.id}>
                 <CardHeader className="p-4 pt-0 pb-0">
                   <CardTitle className="text-lg">
-                    {format(new Date(workout.exercise_date), "EEEE")}
+                    <div className="flex flex-row justify-between">
+                      {format(new Date(workout.exercise_date), "EEEE")}
+                      <span className="text-sm text-black border rounded-full py-1 px-4 bg-green-300">By : Unknown</span>
+                    </div>
                   </CardTitle>
                   <CardDescription className="text-sm">
-                    {format(new Date(workout.exercise_date), "d MMMM yyyy")}
+                      {format(new Date(workout.exercise_date), "d MMMM yyyy")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 pt-0"> {/* Reduced padding */}
@@ -292,7 +311,6 @@ export default function Progress() {
             ))}
           </div>
         )}
-        
       </main>
     </div>
   );

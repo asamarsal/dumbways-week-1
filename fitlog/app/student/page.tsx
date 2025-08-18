@@ -41,6 +41,10 @@ import { toast } from "sonner"
 
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 
+import loadingworld from "../src/animations/loadingworld.json";
+
+import Lottie from "lottie-react";
+
 import { cn } from "@/lib/utils"
 import {
   Command,
@@ -50,25 +54,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
-
-const frameworks = [
-  {
-    value: "ujang",
-    label: "Ujang",
-  },
-  {
-    value: "bagas",
-    label: "Bagas",
-  },
-  {
-    value: "asep",
-    label: "Asep",
-  },
-  {
-    value: "sugiono",
-    label: "Sugiono",
-  }
-]
 
 export default function Student() {
 
@@ -94,6 +79,9 @@ export default function Student() {
 
     const [value, setValue] = React.useState("")
     const [openFramework, setOpenFramework] = React.useState(false)
+
+    const [selectedSportName, setSelectedSportName] = React.useState("")
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         async function fetchSports() {
@@ -181,8 +169,24 @@ export default function Student() {
             {/* Navbar */}
             <Navbar />
 
+            <div
+                      className="absolute inset-0 -z-10"
+                      style={{
+                        background: "#ffffff",
+                        backgroundImage: `
+                          radial-gradient(
+                            circle at top center,
+                            rgba(173, 109, 244, 0.5),
+                            transparent 70%
+                          )
+                        `,
+                        filter: "blur(80px)",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    />
+
             {/* Konten */}
-            <main className="pt-20 w-full max-w-md mx-auto px-4">
+            <main className="pt-20 w-full max-w-md mx-auto px-4 flex flex-row gap-4">
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl">Olahraga apa hari ini?</CardTitle>
@@ -247,66 +251,53 @@ export default function Student() {
 
                         <div className="flex flex-col gap-2 px-4">
                             <Popover open={openFramework} onOpenChange={setOpenFramework}>
-      
                                 <PopoverTrigger asChild>
                                     <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openFramework}
-                                    className="w-full justify-between"
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openFramework}
+                                        className="w-full justify-between"
                                     >
-                                    {value
-                                        ? frameworks.find((framework) => framework.value === value)?.label
-                                        : "Select student..."}
-                                    <ChevronsUpDown className="opacity-50" />
+                                        {selectedSportName || "Select sports..."}
+                                        <ChevronsUpDown className="opacity-50" />
                                     </Button>
                                 </PopoverTrigger>
                                 
-                                <PopoverContent className="w-full p-0">
+                                <PopoverContent className="w-[var(--radix-popover-trigger-width)] overflow-hidden p-0" align="start">
                                     <Command>
-                                    <CommandInput placeholder="Search student..." className="h-9" />
-                                    <CommandList>
-                                        <CommandEmpty>No framework found.</CommandEmpty>
-                                        <CommandGroup>
-                                        {frameworks.map((framework) => (
-                                            <CommandItem
-                                            key={framework.value}
-                                            value={framework.value}
-                                            onSelect={(currentValue) => {
-                                                setValue(currentValue === value ? "" : currentValue)
-                                                setOpen(false)
-                                            }}
-                                            >
-                                            {framework.label}
-                                            <Check
-                                                className={cn(
-                                                "ml-auto",
-                                                value === framework.value ? "opacity-100" : "opacity-0"
-                                                )}
-                                            />
-                                            </CommandItem>
-                                        ))}
-                                        </CommandGroup>
-                                    </CommandList>
+                                        <CommandInput placeholder="Search sports..." className="h-9" />
+                                        <CommandList>
+                                            <CommandEmpty>No sports found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {sports.map((sport) => (
+                                                    <CommandItem
+                                                        key={sport.id}
+                                                        value={sport.exercise_type}
+                                                        onSelect={(currentValue) => {
+                                                            setSelectedSportName(currentValue)
+                                                            setSelectedSportId(sport.id)
+                                                            setSelectedItem(sport.exercise_type)
+                                                            setOpenFramework(false)
+                                                        }}
+                                                    >
+                                                        {sport.exercise_type}
+                                                        <Check
+                                                            className={cn(
+                                                                "ml-auto",
+                                                                selectedSportName === sport.exercise_type ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
                                     </Command>
                                 </PopoverContent>
                             </Popover>
+
                         </div>
 
                     <div className="flex flex-col gap-2 px-4">
-
-                        <AnimatedList 
-                            className="flex flex-col gap-2 px-4"
-                            items={items}
-                            onItemSelect={(item: string, index: number) => {
-                                console.log(item, index);
-                                setSelectedSportId(sports[index].id);
-                                setSelectedItem(item);
-                            }}
-                            showGradients={false}
-                            enableArrowNavigation={false}
-                            displayScrollbar={false}
-                         />
 
                         {selectedItem && (
                             <div className="px-4 py-4 bg-gray-100 rounded">
@@ -338,7 +329,8 @@ export default function Student() {
                         </Button>
                     </div>
                 </Card>
-            </main>
-        </div>
+
+        </main>
+    </div>
     );
 }

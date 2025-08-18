@@ -9,23 +9,26 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique
-  name          String
-  username      String   @unique
-  password      String
-  role          String   @default("member")
-  photo_profile String?  @default("https://picsum.photos/200")
-  bio           String?  @default("Welcome to fitcuy")
-  created_at    DateTime @default(now())
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  name            String
+  username        String    @unique
+  password        String
+  role            String    @default("member")
+  photo_profile   String?   @default("https://picsum.photos/200")
+  bio             String?   @default("Welcome to fitcuy")
+  created_at      DateTime  @default(now())
 
-  // Relasi workout yang dibuat user ini
+  // PEMILIK workout (yang mengerjakan)
+  workouts_user   Workout[] @relation("WorkoutsUser")
+
+  // Pembuat/pengubah workout (bisa owner sendiri atau mentor)
   workouts_created Workout[] @relation("WorkoutsCreated")
   workouts_updated Workout[] @relation("WorkoutsUpdated")
 
-  // Relasi mentorship 
-  membersOf Mentorship[] @relation("MentorMentorships")   // sebagai mentor
-  mentorsOf Mentorship[] @relation("MemberMentorships")   // sebagai member
+  // Mentorship
+  membersOf Mentorship[] @relation("MentorMentorships")
+  mentorsOf Mentorship[] @relation("MemberMentorships")
 
   // Workout yang ditugaskan sebagai mentor
   assignedWorkouts Workout[] @relation("MentorAssignedWorkouts")
@@ -34,41 +37,46 @@ model User {
 }
 
 model Workout {
-  id            Int      @id @default(autoincrement()) // ID unik workout
-  exercise_id   Int      // FK ke Sport.id
+  id            Int       @id @default(autoincrement())
+  exercise_id   Int
   duration      Int?
   exercise_date DateTime
-  notes         String?  @default("")
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  notes         String?   @default("")
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
 
-  // Relasi ke User (created_by = pemilik workout)
+  // PEMILIK workout (member yang mengerjakan)
+  user_id       Int
+  user          User      @relation("WorkoutsUser", fields: [user_id], references: [id])
+
+  // Pembuat record (bisa owner sendiri ATAU mentor)
   created_by    Int
-  createdByUser User     @relation("WorkoutsCreated", fields: [created_by], references: [id])
+  createdByUser User      @relation("WorkoutsCreated", fields: [created_by], references: [id])
 
-  // Relasi ke User (updated_by)
+  // Pengubah terakhir
   updated_by     Int?
-  updatedByUser  User?    @relation("WorkoutsUpdated", fields: [updated_by], references: [id])
+  updatedByUser  User?     @relation("WorkoutsUpdated", fields: [updated_by], references: [id])
 
-  // Relasi ke Sport
-  sport          Sport    @relation(fields: [exercise_id], references: [id])
+  // Jenis olahraga
+  sport          Sport     @relation(fields: [exercise_id], references: [id])
 
-  // Relasi ke Mentor (yang memberi arahan)
+  // Mentor pemberi arahan (opsional)
   mentor_id      Int?
-  mentor         User?    @relation("MentorAssignedWorkouts", fields: [mentor_id], references: [id])
+  mentor         User?     @relation("MentorAssignedWorkouts", fields: [mentor_id], references: [id])
 
+  @@index([user_id])
+  @@index([created_by])
   @@index([mentor_id])
   @@map("workouts")
 }
 
 model Sport {
-  id            Int      @id @default(autoincrement()) // ID unik jenis olahraga
+  id            Int       @id @default(autoincrement())
   exercise_type String
   info          String?
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
 
-  // Relasi ke Workout
   workouts      Workout[]
 
   @@map("sports")
