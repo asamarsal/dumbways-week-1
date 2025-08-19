@@ -300,7 +300,7 @@ export default function Student() {
                             </CardTitle>
                             
                             <div className="space-y-2">
-                                <Command className="rounded-lg border shadow-md">
+                                <Command className="rounded-lg border">
                                     <CommandInput 
                                         placeholder="Search new students..." 
                                         onValueChange={(value) => handleSearch(value)}

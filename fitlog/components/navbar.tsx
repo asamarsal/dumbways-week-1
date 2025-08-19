@@ -1,16 +1,21 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getUserRole } from "@/lib/auth";
+
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
 
   const [userName, setUserName] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Access localStorage after component mounts (client-side only)
+    
     const name = localStorage.getItem("name");
     const role = getUserRole();
 
@@ -36,17 +41,49 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-14">
           {/* Menu kiri */}
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="hover:text-purple-600 transition">
+            <Link 
+              href="/dashboard" 
+              className={cn(
+                "transition",
+                pathname === "/dashboard" 
+                  ? "text-purple-600" 
+                  : "hover:text-purple-600"
+              )}
+            >
               Dashboard
             </Link>
-            <Link href="/workout" className="hover:text-purple-600 transition">
+            <Link 
+              href="/workout" 
+              className={cn(
+                "transition",
+                pathname === "/workout" 
+                  ? "text-purple-600" 
+                  : "hover:text-purple-600"
+              )}
+            >
               Workout
             </Link>
-            <Link href="/progress" className="hover:text-purple-600 transition">
+            <Link 
+              href="/progress" 
+              className={cn(
+                "transition",
+                pathname === "/progress" 
+                  ? "text-purple-600" 
+                  : "hover:text-purple-600"
+              )}
+            >
               Progress
             </Link>
             {userRole === 'mentor' && (
-              <Link href="/student" className="hover:text-purple-600 transition">
+              <Link 
+                href="/student" 
+                className={cn(
+                  "transition",
+                  pathname === "/student" 
+                    ? "text-purple-600" 
+                    : "hover:text-purple-600"
+                )}
+              >
                 Student
               </Link>
             )}
