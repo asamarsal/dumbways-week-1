@@ -1,5 +1,5 @@
 import express from "express";
-import { createMentorship, getMentorStudents, getStudentWorkouts } from "../controllers/mentorship";
+import { createMentorship, getMentorStudents, getStudentWorkouts, createStudentWorkout, searchMembers } from "../controllers/mentorship";
 import { authenticate, authenticateMentor } from "../middlewares/auth";
 
 const router = express.Router();
@@ -18,5 +18,11 @@ router.get("/students", getMentorStudents);
 
 // Get specific student's workouts
 router.get("/students/:studentId/workouts", getStudentWorkouts);
+
+// Post specific student's workouts
+router.post("/students/:studentId/workouts", createStudentWorkout);
+
+// Get specific members to invite
+router.get("/search-members", authenticateMentor, searchMembers);
 
 export default router;

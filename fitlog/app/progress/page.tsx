@@ -51,6 +51,7 @@ interface Workout {
   created_at: string;
   updated_at: string;
   created_by: number;
+  user_id: number;
   createdByUser: {
     id: number;
     name: string;
@@ -165,9 +166,23 @@ export default function Progress() {
           }}
         />
 
-      <main className="pt-18 w-full max-w-7xl mx-auto px-4"> {/* Changed max-w-xl to max-w-7xl */}
-        <p className="text-xl font-bold">Workout Plan</p>
-        <p className="pb-2">Your workout activities</p>
+      <main className="pt-18 w-full max-w-7xl mx-auto px-4"> 
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col">
+            <p className="text-xl font-bold">Workout Plan</p>
+          <p className="pb-2">Your workout activities</p>
+          </div>
+        
+          <div className="flex flex-col">
+            <img
+            src="/fitcuylong.png"
+            alt="FitCuy Logo"
+            width={80}
+            height={80}
+            className="mb-2 mx-auto"
+           />
+          </div>
+        </div>
 
         {loading && 
           <div className="flex items-center justify-center">
@@ -196,13 +211,29 @@ export default function Progress() {
 
         {!loading && !error && workouts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {/* Added grid-cols classes */}
-            {workouts.map((workout) => (
+            {workouts
+            .filter(workout => workout.user_id === Number(localStorage.getItem("user_id")))
+            .map((workout) => (
               <Card key={workout.id}>
                 <CardHeader className="p-4 pt-0 pb-0">
                   <CardTitle className="text-lg">
                     <div className="flex flex-row justify-between">
                       {format(new Date(workout.exercise_date), "EEEE")}
-                      <span className="text-sm text-black border rounded-full py-1 px-4 bg-green-300">By : Unknown</span>
+
+                      <span className={`text-sm text-black border rounded-full py-1 px-4 
+                          ${workout.createdByUser?.id === Number(localStorage.getItem("user_id")) 
+                            ? "bg-green-300" 
+                            : "bg-blue-300"}`}
+                      >
+
+                        By : {workout.createdByUser?.id === Number(localStorage.getItem("user_id"))
+                          ? "me"
+                          : workout.createdByUser?.username
+                              ? workout.createdByUser.username
+                              : "unknown"
+                        }
+
+                      </span>
                     </div>
                   </CardTitle>
                   <CardDescription className="text-sm">
@@ -225,10 +256,6 @@ export default function Progress() {
                         <span className="text-right flex-1 ml-2">{workout.notes}</span>
                       </div>
                     )}
-                    {/* <div className="flex justify-between text-xs text-gray-500">
-                      <span>By:</span>
-                      <span>{workout.createdByUser.username}</span>
-                    </div> */}
                     <div className="flex flex-row items-center justify-between w-full pb-0">
 
                       <Dialog>

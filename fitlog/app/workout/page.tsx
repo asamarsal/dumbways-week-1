@@ -76,7 +76,7 @@ export default function Dashboard() {
     // const [value, setValue] = React.useState("")
 
     const [selectedSportName, setSelectedSportName] = React.useState("")
-    const [openFramework, setOpenFramework] = React.useState(false)
+    const [openSport, setOpenSport] = React.useState(false)
 
     React.useEffect(() => {
         async function fetchSports() {
@@ -245,12 +245,12 @@ export default function Dashboard() {
                     </div>
 
                         <div className="flex flex-col gap-2 px-4">
-                            <Popover open={openFramework} onOpenChange={setOpenFramework}>
+                            <Popover open={openSport} onOpenChange={setOpenSport}>
                                 <PopoverTrigger asChild>
                                     <Button
                                         variant="outline"
                                         role="combobox"
-                                        aria-expanded={openFramework}
+                                        aria-expanded={openSport}
                                         className="w-full justify-between"
                                     >
                                         {selectedSportName || "Select sports..."}
@@ -260,7 +260,7 @@ export default function Dashboard() {
                                 
                                 <PopoverContent className="w-[var(--radix-popover-trigger-width)] overflow-hidden p-0" align="start">
                                     <Command>
-                                        <CommandInput placeholder="Search sports..." className="h-9" />
+                                        <CommandInput placeholder="Search sports..." className="h-8" />
                                         <CommandList>
                                             <CommandEmpty>No sports found.</CommandEmpty>
                                             <CommandGroup>
@@ -272,7 +272,7 @@ export default function Dashboard() {
                                                             setSelectedSportName(currentValue)
                                                             setSelectedSportId(sport.id)
                                                             setSelectedItem(sport.exercise_type)
-                                                            setOpenFramework(false)
+                                                            setOpenSport(false)
                                                         }}
                                                     >
                                                         {sport.exercise_type}

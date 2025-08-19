@@ -32,7 +32,10 @@ export async function getAllWorkouts(req: Request, res: Response) {
     const userId = (req as any).userId;
     const workouts = await prisma.workout.findMany({
       where: {
-        created_by: userId // Only get workouts for authenticated user
+        OR: [
+          { created_by: userId }, // Workouts created by user
+          { user_id: userId }     // Workouts created by mentor
+        ]
       },
       include: {
         createdByUser: {
