@@ -57,20 +57,55 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-row gap-4">
-          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
-            <p className="text-white">Test</p>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500 w-[220px]" spotlightColor="rgba(255, 255, 255, 0.5)">
+            <div className="flex flex-col items-center">
+              <img
+                src="/sports/tennis.png"
+                alt="Tennis"
+                width={60}
+                height={60}
+              />
+            </div>
           </SpotlightCard>
-          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
-            <p className="text-white">Test</p>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500 w-[220px]" spotlightColor="rgba(255, 255, 255, 0.5)">
+            <div className="flex flex-col items-center">
+              <img
+                src="/sports/badminton.png"
+                alt="Badminton"
+                width={120}
+                height={120}
+              />
+            </div>
           </SpotlightCard>
-          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
-            <p className="text-white">Test</p>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500 w-[220px]" spotlightColor="rgba(255, 255, 255, 0.5)">
+            <div className="flex flex-col items-center">
+              <img
+                src="/sports/padel.png"
+                alt="Padel"
+                width={80}
+                height={80}
+              />
+            </div>
           </SpotlightCard>
-          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
-            <p className="text-white">Test</p>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500 w-[220px]" spotlightColor="rgba(255, 255, 255, 0.5)">
+            <div className="flex flex-col items-center">
+              <img
+                src="/sports/swimming.png"
+                alt="Swimming"
+                width={90}
+                height={90}
+              />
+            </div>
           </SpotlightCard>
-          <SpotlightCard className="custom-spotlight-card bg-purple-500" spotlightColor="rgba(240, 10, 170, 0.9)">
-            <p className="text-white">Test</p>
+          <SpotlightCard className="custom-spotlight-card bg-purple-500 w-[220px]" spotlightColor="rgba(255, 255, 255, 0.5)">
+            <div className="flex flex-col items-center">
+              <img
+                src="/sports/running.png"
+                alt="Running"
+                width={100}
+                height={100}
+              />
+            </div>
           </SpotlightCard>
         </div>
         <div style={{ height: '200px', position: 'relative', overflow: 'hidden', paddingTop: '20px'}}>
