@@ -48,7 +48,7 @@ export default function Login() {
       localStorage.setItem("token", data.data.token);
       // Redirect ke dashboard atau halaman lain
       window.location.href = "/dashboard";
-    } catch (err: any) {
+    } catch (err) {
       setError("Terjadi kesalahan jaringan");
     } finally {
       setLoading(false);

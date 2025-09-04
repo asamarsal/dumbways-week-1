@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/navbar";
 
-import AnimatedList from '@/components/reactbits/animatedlist'
 import { Check, ChevronsUpDown } from "lucide-react"
 
 import axios from "axios";
@@ -24,15 +23,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -56,10 +46,6 @@ export default function Dashboard() {
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = React.useState<Date | undefined>(undefined)
 
-    const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true)
-    const [showActivityBar, setShowActivityBar] = React.useState<Checked>(false)
-    const [showPanel, setShowPanel] = React.useState<Checked>(false)
-
     const [sports, setSports] = React.useState<any[]>([]);
     const [selectedSportId, setSelectedSportId] = React.useState<number | null>(null);
     const [notes, setNotes] = React.useState("");
@@ -73,8 +59,6 @@ export default function Dashboard() {
 
     const items = sports.map(sport => sport.exercise_type);
 
-    // const [value, setValue] = React.useState("")
-
     const [selectedSportName, setSelectedSportName] = React.useState("")
     const [openSport, setOpenSport] = React.useState(false)
 
@@ -83,9 +67,6 @@ export default function Dashboard() {
         try {
             const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/v1/sport`);
             if (res.data?.data) {
-            // Ambil exercise_type saja
-            //   const sportItems = res.data.data.map((w: any) => w.exercise_type);
-            //   setItems(sportItems);
             setSports(res.data.data);
             }
         } catch (err) {
@@ -114,7 +95,7 @@ export default function Dashboard() {
             const payload = {
                 duration,
                 exercise_id: selectedSportId,
-                exercise_date: date.toISOString().split("T")[0], // YYYY-MM-DD
+                exercise_date: date.toISOString().split("T")[0],
                 notes,
                 created_by: Number(userId)
             };

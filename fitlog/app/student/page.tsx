@@ -25,14 +25,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -40,10 +32,6 @@ import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
 
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
-
-import loadingworld from "../src/animations/loadingworld.json";
-
-import Lottie from "lottie-react";
 
 import { cn } from "@/lib/utils"
 import {
@@ -191,9 +179,20 @@ export default function Student() {
             setSelectedSportName("");
         }
 
-    } catch (err: any) {
-        console.error("Error details:", err.response?.data || err);
-        toast.error(err.response?.data?.message || "Workout gagal ditambahkan");
+    } catch (err: unknown) {
+    if (
+        typeof err === "object" &&
+        err !== null &&
+        "response" in err &&
+        typeof (err as any).response === "object"
+    ) {
+        const response = (err as any).response;
+        console.error("Error details:", response?.data || err);
+        toast.error(response?.data?.message || "Workout gagal ditambahkan");
+    } else {
+        console.error("Error details:", err);
+        toast.error("Workout gagal ditambahkan");
+        }
     }
 }
 
